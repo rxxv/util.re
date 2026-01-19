@@ -51,7 +51,7 @@ export default function HomeClient({ tools, categories }: HomeClientProps) {
 
   return (
     <div className="space-y-12">
-      <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="space-y-5">
         <div className="space-y-5">
           <div className="space-y-3">
             <p className="text-xs uppercase tracking-[0.2em] text-[var(--accent-green)]">
@@ -79,9 +79,6 @@ export default function HomeClient({ tools, categories }: HomeClientProps) {
             placeholder="Search for a tool or keyword"
           />
         </div>
-        <Card className="flex min-h-[220px] items-center justify-center border-dashed text-sm text-[var(--muted)]">
-          Illustration placeholder
-        </Card>
       </section>
 
       <section className="space-y-5" aria-live="polite">

@@ -7,6 +7,7 @@ import { sortedTools } from "@/data/tools";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/cn";
 import ToolIcon from "@/components/ToolIcon";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const groupTools = () => {
   const grouped = new Map<string, typeof sortedTools>();
@@ -30,14 +31,17 @@ export default function Sidebar() {
   const renderLinks = () => (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-lg border border-[var(--border)] bg-[var(--paper-surface)]" />
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--paper-surface)] text-sm text-[var(--accent-green)]">
+            和
+          </div>
           <div>
             <p className="text-sm font-semibold text-[var(--accent-green)]">
               {siteConfig.name}
             </p>
             <p className="text-xs text-[var(--muted)]">Handmade web tools</p>
           </div>
+          <ThemeToggle />
         </div>
       </div>
 
@@ -87,14 +91,17 @@ export default function Sidebar() {
         >
           {siteConfig.name}
         </Link>
-        <button
-          type="button"
-          className="rounded-lg border border-[var(--border)] bg-[var(--paper-surface)] px-3 py-1 text-xs text-[var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-        >
-          Menu
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="rounded-lg border border-[var(--border)] bg-[var(--paper-surface)] px-3 py-1 text-xs text-[var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+          >
+            Menu
+          </button>
+        </div>
       </div>
 
       <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:block lg:w-80 lg:border-r lg:border-[var(--border)] lg:bg-[var(--paper-bg)] lg:px-6 lg:py-8 lg:overflow-y-auto">

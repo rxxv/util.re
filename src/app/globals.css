@@ -19,6 +19,25 @@
   color-scheme: light;
 }
 
+.dark {
+  --paper-bg: #1f1d18;
+  --paper-surface: #26231c;
+  --ink: #f0ece3;
+  --muted: #b8b1a3;
+  --accent-green: #9fb79e;
+  --border: #3a352b;
+  --border-strong: #4a4437;
+  --ring: #b9cbb6;
+  --color-bg: var(--paper-bg);
+  --color-card: var(--paper-surface);
+  --color-ink: var(--ink);
+  --color-muted-text: var(--muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ring: var(--ring);
+  color-scheme: dark;
+}
+
 body {
   background: var(--paper-bg);
   color: var(--ink);
