@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+﻿# Quiet Tools
 
-## Getting Started
+Privacy-first utilities that run entirely in the browser. No logins, no tracking, no cookies.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Add a new tool
 
-To learn more about Next.js, take a look at the following resources:
+1) Add metadata in `src/data/tools.ts`.
+   - Include `slug`, `title`, `description`, `category`, `keywords`, `howItWorks`, `faq`, and `related`.
+2) Create the tool UI in `src/components/tools/<slug>.tsx`.
+   - Mark the component with `"use client"`.
+   - Keep parsing safe and add helpful error messages.
+3) Register the tool in `src/components/tools/registry.tsx`.
+4) (Optional) Add it as related to other tools.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The new tool page will be generated automatically at `/tools/<slug>` and included in the sitemap.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## SEO configuration
 
-## Deploy on Vercel
+Set `NEXT_PUBLIC_SITE_URL` in your environment for correct canonical URLs and sitemaps.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Vercel
+
+1) Push the repo to GitHub.
+2) Import the project in Vercel.
+3) Set `NEXT_PUBLIC_SITE_URL` in Project Settings > Environment Variables.
+4) Deploy.
+
+### Cloudflare Pages
+
+1) Push the repo to GitHub.
+2) Create a new Pages project and select the repo.
+3) Build command: `npm run build`
+4) Output directory: `.next`
+5) Set `NEXT_PUBLIC_SITE_URL` in the Pages project environment variables.
+6) Deploy.
