@@ -1,11 +1,11 @@
 ﻿import type { Metadata } from "next";
 import "./globals.css";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, siteUrl } from "@/lib/site";
 import { ToastProvider } from "@/components/ui/ToastProvider";
 import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(siteUrl),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.description,
-    url: siteConfig.url,
+    url: siteUrl,
     siteName: siteConfig.name,
     locale: "en_US",
     type: "website",

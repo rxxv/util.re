@@ -1,16 +1,16 @@
 ﻿import type { MetadataRoute } from "next";
 import { tools } from "@/data/tools";
-import { siteConfig } from "@/lib/site";
+import { siteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const toolEntries = tools.map((tool) => ({
-    url: `${siteConfig.url}/tools/${tool.slug}`,
+    url: new URL(`/tools/${tool.slug}`, siteUrl).toString(),
     lastModified: new Date(),
   }));
 
   return [
     {
-      url: siteConfig.url,
+      url: siteUrl,
       lastModified: new Date(),
     },
     ...toolEntries,

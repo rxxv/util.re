@@ -2,6 +2,8 @@
   name: "xxxx.re",
   description:
     "Privacy-first utilities that run in your browser. No logins, no tracking, just fast tools.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://xxxx.re",
   twitterHandle: "@quiettools",
 };
+
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://xxxx.re";

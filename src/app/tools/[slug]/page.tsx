@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import ToolCard from "@/components/ToolCard";
 import { toolComponents } from "@/components/tools/registry";
 import { getToolBySlug, getToolsBySlugs, tools } from "@/data/tools";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, siteUrl } from "@/lib/site";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
 import ToolIcon from "@/components/ToolIcon";
@@ -26,22 +26,37 @@ export async function generateMetadata({
     return { title: "Tool not found" };
   }
 
-  const url = `${siteConfig.url}/tools/${tool.slug}`;
+  const base = new URL(siteUrl);
+  const url = new URL(`/tools/${tool.slug}`, base).toString();
+  const ogImage = new URL("/og.png", base).toString();
 
   return {
     title: tool.title,
     description: tool.description,
     keywords: tool.keywords,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title: tool.title,
       description: tool.description,
       url,
+      siteName: siteConfig.name,
       type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: `${tool.title} — ${siteConfig.name}`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: tool.title,
       description: tool.description,
+      images: [ogImage],
     },
   };
 }
@@ -72,7 +87,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
       priceCurrency: "USD",
     },
     keywords: tool.keywords.join(", "),
-    url: `${siteConfig.url}/tools/${tool.slug}`,
+    url: new URL(`/tools/${tool.slug}`, siteUrl).toString(),
   };
 
   return (

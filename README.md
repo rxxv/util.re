@@ -11,6 +11,12 @@ npm run dev
 
 Open http://localhost:3000.
 
+Create a `.env.local` file (or set environment variables) with:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://xxxx.re
+```
+
 ## Build
 
 ```bash
@@ -33,6 +39,7 @@ The new tool page will be generated automatically at `/tools/<slug>` and include
 ## SEO configuration
 
 Set `NEXT_PUBLIC_SITE_URL` in your environment for correct canonical URLs and sitemaps.
+See `.env.example` for the expected format.
 
 ## Deploy
 
