@@ -23,12 +23,11 @@ export default function CategoryChips({
             key={category}
             type="button"
             size="sm"
-            variant={isActive ? "solid" : "outline"}
+            variant={isActive ? "primary" : "secondary"}
             className={cn(
-              isActive
-                ? "bg-[#e3ebdf] text-[var(--accent-green)] border-[var(--border-strong)]"
-                : ""
+              isActive ? "text-black" : "text-[var(--text)]"
             )}
+            aria-pressed={isActive}
             onClick={() => onSelect(category)}
           >
             {category}

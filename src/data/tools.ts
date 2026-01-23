@@ -680,6 +680,192 @@ export const tools: Tool[] = [
     priority: 100,
   },
   {
+    slug: "website-status",
+    title: "Website Status Checker",
+    description:
+      "Check HTTP status codes, final URL, and response time for any website.",
+    category: "Network",
+    keywords: ["status", "http", "uptime", "response time"],
+    howItWorks: [
+      "Enter a URL to check.",
+      "The server makes a request and measures latency.",
+      "View status code, final URL, and content type.",
+    ],
+    faq: [
+      {
+        question: "Does this run locally?",
+        answer:
+          "No. It performs a server-side request so we can measure response time.",
+      },
+      {
+        question: "Why is the final URL different?",
+        answer:
+          "Some sites redirect HTTP to HTTPS or use other redirects that change the final URL.",
+      },
+    ],
+    related: ["ping-latency", "opengraph-preview", "ssl-checker"],
+    priority: 88,
+  },
+  {
+    slug: "ip-asn-lookup",
+    title: "IP / ASN Lookup",
+    description:
+      "Get public IP details including ASN, organization, and approximate location.",
+    category: "Network",
+    keywords: ["ip", "asn", "lookup", "network"],
+    howItWorks: [
+      "Leave empty to lookup your public IP, or enter an IP address.",
+      "We query a public IP API for details.",
+      "Review ASN, organization, and location.",
+    ],
+    faq: [
+      {
+        question: "Is my IP sent to a third party?",
+        answer:
+          "Yes. The lookup is performed via a public IP API service.",
+      },
+      {
+        question: "Is the location exact?",
+        answer: "No. IP location is approximate and city-level at best.",
+      },
+    ],
+    related: ["website-status", "dns-lookup"],
+    priority: 82,
+  },
+  {
+    slug: "dns-lookup",
+    title: "DNS Lookup",
+    description:
+      "Query A, AAAA, CNAME, MX, and TXT records using DNS over HTTPS.",
+    category: "Network",
+    keywords: ["dns", "records", "lookup", "mx"],
+    howItWorks: [
+      "Enter a domain and pick a record type.",
+      "The tool queries public DNS over HTTPS.",
+      "Results show record data and TTL.",
+    ],
+    faq: [
+      {
+        question: "Which resolver is used?",
+        answer: "Google DNS over HTTPS is used for consistent results.",
+      },
+      {
+        question: "Why are there no answers?",
+        answer:
+          "Some domains do not have that record type or it may be blocked by policy.",
+      },
+    ],
+    related: ["whois-lookup", "website-status"],
+    priority: 80,
+  },
+  {
+    slug: "whois-lookup",
+    title: "Whois Lookup",
+    description:
+      "Fetch RDAP domain registration data including registrar and dates.",
+    category: "Network",
+    keywords: ["whois", "rdap", "domain", "registrar"],
+    howItWorks: [
+      "Enter a domain name.",
+      "The tool queries public RDAP services.",
+      "Review registrar, status, and key events.",
+    ],
+    faq: [
+      {
+        question: "Is personal data shown?",
+        answer:
+          "RDAP data varies by registrar and privacy settings; personal data may be redacted.",
+      },
+      {
+        question: "Why is the data incomplete?",
+        answer:
+          "Some registries return limited data or hide details for privacy.",
+      },
+    ],
+    related: ["dns-lookup", "ssl-checker"],
+    priority: 78,
+  },
+  {
+    slug: "opengraph-preview",
+    title: "OpenGraph Preview",
+    description:
+      "Preview OG and Twitter tags for any URL to see how it will share.",
+    category: "Network",
+    keywords: ["opengraph", "twitter card", "preview", "meta"],
+    howItWorks: [
+      "Enter a URL to inspect.",
+      "We fetch the page HTML server-side.",
+      "View OG/Twitter titles, descriptions, and images.",
+    ],
+    faq: [
+      {
+        question: "Does it render the page?",
+        answer:
+          "No. It reads the HTML response and extracts meta tags.",
+      },
+      {
+        question: "Why are some fields blank?",
+        answer:
+          "The page may not define those tags, or they are injected client-side.",
+      },
+    ],
+    related: ["website-status", "ssl-checker"],
+    priority: 84,
+  },
+  {
+    slug: "ssl-checker",
+    title: "SSL Certificate Checker",
+    description:
+      "Inspect TLS certificate issuer, subject, and expiration dates.",
+    category: "Network",
+    keywords: ["ssl", "tls", "certificate", "expiry"],
+    howItWorks: [
+      "Enter a domain name.",
+      "We open a TLS connection server-side.",
+      "See issuer, subject, and expiration details.",
+    ],
+    faq: [
+      {
+        question: "Does this support custom ports?",
+        answer: "No. It checks the default HTTPS port (443).",
+      },
+      {
+        question: "Why might it fail?",
+        answer:
+          "The host may block TLS connections or use unsupported configurations.",
+      },
+    ],
+    related: ["website-status", "whois-lookup"],
+    priority: 86,
+  },
+  {
+    slug: "ping-latency",
+    title: "Ping & Latency Test",
+    description:
+      "Measure HTTP latency to a host or URL from the server.",
+    category: "Network",
+    keywords: ["ping", "latency", "response time", "http"],
+    howItWorks: [
+      "Enter a URL or hostname.",
+      "The server performs an HTTP request and times it.",
+      "Review latency and HTTP status.",
+    ],
+    faq: [
+      {
+        question: "Is this ICMP ping?",
+        answer:
+          "No. It measures HTTP response time, which is more useful for web services.",
+      },
+      {
+        question: "Why is it slower than my browser?",
+        answer:
+          "Latency is measured from the server location, which may differ from your device.",
+      },
+    ],
+    related: ["website-status", "ssl-checker"],
+    priority: 83,
+  },
+  {
     slug: "base64-image",
     title: "Base64 Image Encoder / Decoder",
     description:

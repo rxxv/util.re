@@ -1,29 +1,30 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site";
+import Container from "@/components/ui/Container";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[var(--color-border)]">
-      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-[var(--color-muted-text)] lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        <div>
-          <p className="text-[var(--color-ink)]">{siteConfig.name}</p>
-          <p>No logins, no tracking, no cookies.</p>
+    <footer className="border-t border-[var(--border)] py-10">
+      <Container className="flex flex-col gap-6 text-sm text-[var(--muted)] md:flex-row md:items-center md:justify-between">
+        <div className="space-y-1">
+          <p className="text-[var(--text)]">{siteConfig.name}</p>
+          <p>No logins. No tracking. Long live the handmade web.</p>
         </div>
         <div className="flex items-center gap-4">
           <Link
-            href="/"
-            className="hover:text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
+            href="/#directory"
+            className="transition hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
           >
-            Home
+            Browse tools
           </Link>
           <a
             href="https://github.com"
-            className="hover:text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
+            className="transition hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
           >
             GitHub
           </a>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

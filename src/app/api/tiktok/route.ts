@@ -1,4 +1,6 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { fetchWithTimeout } from "@/lib/serverFetch";
+import { getClientIp, rateLimit } from "@/lib/rateLimit";
 
 const formatNumber = (value: number) => {
   if (!Number.isFinite(value)) return "0";
@@ -32,6 +34,23 @@ const parseUniversalData = (html: string) => {
 };
 
 export async function GET(request: Request) {
+  const clientIp = getClientIp(request);
+  const rate = rateLimit({
+    key: `tiktok:${clientIp}`,
+    limit: 10,
+    burst: 5,
+    windowMs: 60_000,
+  });
+  if (!rate.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please slow down." },
+      {
+        status: 429,
+        headers: { "Retry-After": rate.retryAfter.toString() },
+      }
+    );
+  }
+
   const { searchParams } = new URL(request.url);
   const username = (searchParams.get("username") || "")
     .trim()
@@ -47,21 +66,26 @@ export async function GET(request: Request) {
   const url = `https://www.tiktok.com/@${username}`;
 
   try {
-    const response = await fetch(url, {
-      headers: {
-        host: "www.tiktok.com",
-        "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\", \"Google Chrome\";v=\"99\"",
-        "sec-ch-ua-mobile": "?1",
-        "sec-ch-ua-platform": "\"Android\"",
-        "upgrade-insecure-requests": "1",
-        "user-agent":
-          "Mozilla/5.0 (Linux; Android 8.0.0; Plume L2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.88 Mobile Safari/537.36",
-        accept:
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "accept-language": "en-US,en;q=0.9",
+    const response = await fetchWithTimeout(
+      url,
+      {
+        headers: {
+          host: "www.tiktok.com",
+          "sec-ch-ua":
+            "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\", \"Google Chrome\";v=\"99\"",
+          "sec-ch-ua-mobile": "?1",
+          "sec-ch-ua-platform": "\"Android\"",
+          "upgrade-insecure-requests": "1",
+          "user-agent":
+            "Mozilla/5.0 (Linux; Android 8.0.0; Plume L2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.88 Mobile Safari/537.36",
+          accept:
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+          "accept-language": "en-US,en;q=0.9",
+        },
+        cache: "no-store",
       },
-      cache: "no-store",
-    });
+      10_000
+    );
 
     if (!response.ok) {
       return NextResponse.json(

@@ -223,6 +223,51 @@ const icons: Record<string, ReactElement> = {
       <path d="M12 5c1.5 2 3.5 3 6 3" />
     </IconSvg>
   ),
+  "website-status": (
+    <IconSvg>
+      <circle cx="12" cy="12" r="8" />
+      <path d="M8 12h8" />
+      <path d="M12 8v8" />
+    </IconSvg>
+  ),
+  "ip-asn-lookup": (
+    <IconSvg>
+      <rect x="4" y="6" width="16" height="12" rx="2" />
+      <path d="M8 10h8" />
+      <path d="M8 14h5" />
+    </IconSvg>
+  ),
+  "dns-lookup": (
+    <IconSvg>
+      <circle cx="7" cy="12" r="2" />
+      <circle cx="17" cy="12" r="2" />
+      <path d="M9 12h6" />
+    </IconSvg>
+  ),
+  "whois-lookup": (
+    <IconSvg>
+      <circle cx="12" cy="8" r="3" />
+      <path d="M5 19c1.5-3 12.5-3 14 0" />
+    </IconSvg>
+  ),
+  "opengraph-preview": (
+    <IconSvg>
+      <rect x="4" y="5" width="16" height="14" rx="2" />
+      <path d="M7 9h10" />
+      <path d="M7 13h6" />
+    </IconSvg>
+  ),
+  "ssl-checker": (
+    <IconSvg>
+      <rect x="6" y="11" width="12" height="8" rx="2" />
+      <path d="M9 11V9a3 3 0 0 1 6 0v2" />
+    </IconSvg>
+  ),
+  "ping-latency": (
+    <IconSvg>
+      <path d="M4 12h4l2 4 3-8 2 4h5" />
+    </IconSvg>
+  ),
 };
 
 export default function ToolIcon({
@@ -233,7 +278,7 @@ export default function ToolIcon({
   className?: string;
 }) {
   return (
-    <span className={cn("text-[var(--accent-green)]", className)}>
+    <span className={cn("text-[var(--accent)]", className)}>
       {icons[slug] ?? icons["text-counter"]}
     </span>
   );

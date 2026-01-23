@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     images: [
       {
-        url: new URL("/og.png", siteUrl).toString(),
+        url: new URL("/opengraph-image", siteUrl).toString(),
         width: 1200,
         height: 630,
         alt: `${siteConfig.name} — Privacy-first tools`,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} — Privacy-first tools`,
     description:
       "Handmade, privacy-first tools that run locally in your browser. No logins, no tracking, just fast utilities.",
-    images: [new URL("/og.png", siteUrl).toString()],
+    images: [new URL("/opengraph-image", siteUrl).toString()],
   },
 };
 

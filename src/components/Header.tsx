@@ -1,40 +1,168 @@
-﻿import Link from "next/link";
-import { Suspense } from "react";
+"use client";
+
+import Link from "next/link";
+import { useMemo, useState } from "react";
 import { siteConfig } from "@/lib/site";
-import ThemeToggle from "@/components/ThemeToggle";
-import HeaderSearch from "@/components/HeaderSearch";
+import { categories, sortedTools } from "@/data/tools";
+import Container from "@/components/ui/Container";
+import { cn } from "@/lib/cn";
+import ToolIcon from "@/components/ToolIcon";
 
 export default function Header() {
+  const [open, setOpen] = useState(false);
+  const popularTools = useMemo(() => sortedTools.slice(0, 6), []);
+  const menuCategories = useMemo(
+    () => categories.filter((category) => category !== "All"),
+    []
+  );
+
   return (
-    <header className="border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--bg)] backdrop-blur">
+      <Container className="flex items-center justify-between py-4">
         <Link
           href="/"
-          className="text-base font-semibold tracking-tight text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
+          className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
         >
-          {siteConfig.name}
+          <span className="text-lg font-semibold text-[var(--text)]">
+            {siteConfig.name}
+          </span>
+          <span className="hidden text-xs text-[var(--muted)] sm:inline">
+            Handmade web tools
+          </span>
         </Link>
-        <div className="flex items-center gap-4">
-          <nav className="hidden items-center gap-4 text-sm text-[var(--color-muted-text)] md:flex">
-            <Link
-              href="/"
-              className="transition hover:text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
-            >
-              Tools
-            </Link>
-            <a
-              href="https://github.com"
-              className="transition hover:text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
-            >
-              GitHub
-            </a>
+
+        <div className="flex items-center gap-3">
+          <nav className="hidden items-center gap-4 text-sm text-[var(--muted)] lg:flex">
+            <details className="group relative">
+              <summary className="cursor-pointer list-none rounded-full border border-[var(--border)] px-3 py-1.5 text-xs text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] [&::-webkit-details-marker]:hidden">
+                Popular tools
+              </summary>
+              <div className="absolute right-0 mt-3 w-72 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[var(--shadow-md)]">
+                <div className="space-y-3">
+                  {popularTools.map((tool) => (
+                    <Link
+                      key={tool.slug}
+                      href={`/tools/${tool.slug}`}
+                      className="flex items-center gap-2 text-sm text-[var(--text)] transition hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                    >
+                      <ToolIcon slug={tool.slug} className="h-4 w-4" />
+                      {tool.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </details>
+
+            <details className="group relative">
+              <summary className="cursor-pointer list-none text-sm text-[var(--muted)] transition hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] [&::-webkit-details-marker]:hidden">
+                All tools
+              </summary>
+              <div className="absolute right-0 mt-3 w-[520px] rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-5 shadow-[var(--shadow-md)]">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {menuCategories.map((category) => (
+                    <div key={category} className="space-y-2">
+                      <p className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
+                        {category}
+                      </p>
+                      <div className="space-y-1">
+                        {sortedTools
+                          .filter((tool) => tool.category === category)
+                          .map((tool) => (
+                            <Link
+                              key={tool.slug}
+                              href={`/tools/${tool.slug}`}
+                              className="flex items-center gap-2 text-sm text-[var(--text)] transition hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                            >
+                              <ToolIcon slug={tool.slug} className="h-4 w-4" />
+                              {tool.title}
+                            </Link>
+                          ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </details>
           </nav>
-          <Suspense fallback={null}>
-            <HeaderSearch />
-          </Suspense>
-          <ThemeToggle />
+
+          <Link
+            href="/#directory"
+            className={cn(
+              "hidden items-center rounded-[var(--radius-sm)] bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-black shadow-[var(--shadow-sm)] transition hover:brightness-110 lg:inline-flex"
+            )}
+          >
+            Browse tools
+          </Link>
+
+          <button
+            type="button"
+            className="inline-flex items-center rounded-[var(--radius-sm)] border border-[var(--border)] px-3 py-2 text-xs text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] lg:hidden"
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+          >
+            Menu
+          </button>
         </div>
-      </div>
+      </Container>
+
+      {open ? (
+        <button
+          type="button"
+          className="fixed inset-0 z-40 bg-black/60 lg:hidden"
+          onClick={() => setOpen(false)}
+          aria-label="Close menu"
+        />
+      ) : null}
+      <aside
+        className={`fixed right-0 top-0 z-50 h-full w-80 border-l border-[var(--border)] bg-[var(--surface)] p-6 transition duration-200 lg:hidden ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
+        aria-hidden={!open}
+      >
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-semibold text-[var(--text)]">
+            {siteConfig.name}
+          </p>
+          <button
+            type="button"
+            className="rounded-[var(--radius-sm)] border border-[var(--border)] px-2 py-1 text-xs text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+            onClick={() => setOpen(false)}
+          >
+            Close
+          </button>
+        </div>
+        <div className="mt-6 space-y-6">
+          <Link
+            href="/#directory"
+            className="inline-flex w-full items-center justify-center rounded-[var(--radius-sm)] bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+            onClick={() => setOpen(false)}
+          >
+            Browse tools
+          </Link>
+          {menuCategories.map((category) => (
+            <div key={category} className="space-y-2">
+              <p className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
+                {category}
+              </p>
+              <div className="space-y-1">
+                {sortedTools
+                  .filter((tool) => tool.category === category)
+                  .map((tool) => (
+                    <Link
+                      key={tool.slug}
+                      href={`/tools/${tool.slug}`}
+                      className="flex items-center gap-2 text-sm text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                      onClick={() => setOpen(false)}
+                    >
+                      <ToolIcon slug={tool.slug} className="h-4 w-4" />
+                      {tool.title}
+                    </Link>
+                  ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </aside>
     </header>
   );
 }

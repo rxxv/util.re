@@ -28,6 +28,13 @@ import BmiCalculatorTool from "@/components/tools/bmi-calculator";
 import DiceCoinTool from "@/components/tools/dice-coin";
 import EmailUrlValidatorTool from "@/components/tools/email-url-validator";
 import TikTokProfileTool from "@/components/tools/tiktok-profile";
+import WebsiteStatusTool from "@/components/tools/website-status";
+import IpAsnLookupTool from "@/components/tools/ip-asn-lookup";
+import DnsLookupTool from "@/components/tools/dns-lookup";
+import WhoisLookupTool from "@/components/tools/whois-lookup";
+import OpenGraphPreviewTool from "@/components/tools/opengraph-preview";
+import SslCheckerTool from "@/components/tools/ssl-checker";
+import PingLatencyTool from "@/components/tools/ping-latency";
 
 export const toolComponents: Record<string, ComponentType> = {
   "text-counter": TextCounterTool,
@@ -59,4 +66,11 @@ export const toolComponents: Record<string, ComponentType> = {
   "dice-coin": DiceCoinTool,
   "email-url-validator": EmailUrlValidatorTool,
   "tiktok-profile": TikTokProfileTool,
+  "website-status": WebsiteStatusTool,
+  "ip-asn-lookup": IpAsnLookupTool,
+  "dns-lookup": DnsLookupTool,
+  "whois-lookup": WhoisLookupTool,
+  "opengraph-preview": OpenGraphPreviewTool,
+  "ssl-checker": SslCheckerTool,
+  "ping-latency": PingLatencyTool,
 };

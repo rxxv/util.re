@@ -1,48 +1,81 @@
 ﻿@import "tailwindcss";
 
 :root {
-  --paper-bg: #f7f3e9;
-  --paper-surface: #fbf8f1;
-  --ink: #2b2a24;
-  --muted: #5f5b51;
-  --accent-green: #47604a;
-  --border: #e3dccf;
-  --border-strong: #d4c9b6;
-  --ring: #6c7f6d;
-  --color-bg: var(--paper-bg);
-  --color-card: var(--paper-surface);
-  --color-ink: var(--ink);
+  --bg: #0b0d0f;
+  --surface: #12141a;
+  --surface-2: #181b22;
+  --border: #262a35;
+  --text: #f4f4f0;
+  --muted: #a7adb8;
+  --accent: #ff7a4a;
+  --accent-soft: rgba(255, 122, 74, 0.16);
+  --halo-1: rgba(255, 122, 74, 0.45);
+  --halo-2: rgba(138, 111, 255, 0.35);
+  --halo-3: rgba(40, 226, 200, 0.3);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 12px 40px rgba(0, 0, 0, 0.45);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --paper-bg: var(--bg);
+  --paper-surface: var(--surface);
+  --ink: var(--text);
+  --accent-green: var(--accent);
+  --border-strong: var(--border);
+  --ring: var(--accent);
+  --color-bg: var(--bg);
+  --color-card: var(--surface);
+  --color-ink: var(--text);
   --color-muted-text: var(--muted);
   --color-border: var(--border);
-  --color-border-strong: var(--border-strong);
-  --color-ring: var(--ring);
-  color-scheme: light;
-}
-
-.dark {
-  --paper-bg: #1f1d18;
-  --paper-surface: #26231c;
-  --ink: #f0ece3;
-  --muted: #b8b1a3;
-  --accent-green: #9fb79e;
-  --border: #3a352b;
-  --border-strong: #4a4437;
-  --ring: #b9cbb6;
-  --color-bg: var(--paper-bg);
-  --color-card: var(--paper-surface);
-  --color-ink: var(--ink);
-  --color-muted-text: var(--muted);
-  --color-border: var(--border);
-  --color-border-strong: var(--border-strong);
-  --color-ring: var(--ring);
+  --color-border-strong: var(--border);
+  --color-ring: var(--accent);
   color-scheme: dark;
 }
 
+.light {
+  --bg: #f7f6f4;
+  --surface: #ffffff;
+  --surface-2: #f1f2f6;
+  --border: #e4e6ed;
+  --text: #121418;
+  --muted: #5a606b;
+  --accent: #f16937;
+  --accent-soft: rgba(241, 105, 55, 0.16);
+  --halo-1: rgba(241, 105, 55, 0.35);
+  --halo-2: rgba(92, 115, 255, 0.25);
+  --halo-3: rgba(40, 198, 190, 0.2);
+  --paper-bg: var(--bg);
+  --paper-surface: var(--surface);
+  --ink: var(--text);
+  --accent-green: var(--accent);
+  --border-strong: var(--border);
+  --ring: var(--accent);
+  --color-bg: var(--bg);
+  --color-card: var(--surface);
+  --color-ink: var(--text);
+  --color-muted-text: var(--muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border);
+  --color-ring: var(--accent);
+  color-scheme: light;
+}
+
 body {
-  background: var(--paper-bg);
-  color: var(--ink);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  background: radial-gradient(circle at top, rgba(255, 122, 74, 0.08), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
   min-height: 100vh;
   line-height: 1.6;
 }
@@ -50,16 +83,23 @@ body {
 h1,
 h2,
 h3 {
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 ::selection {
-  background: rgba(71, 96, 74, 0.18);
+  background: var(--accent-soft);
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }
 
 * {
@@ -117,9 +157,9 @@ a {
   width: 44px;
   height: 44px;
   border-radius: 999px;
-  border: 1px solid var(--border-strong);
-  background: var(--paper-surface);
-  color: var(--accent-green);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
   font-weight: 600;
 }
 
@@ -134,10 +174,10 @@ a {
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 10px;
-  border: 1px solid var(--border-strong);
-  background: var(--paper-surface);
-  color: var(--accent-green);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
   font-weight: 600;
   gap: 4px;
   flex-wrap: wrap;
@@ -152,7 +192,7 @@ a {
   width: 6px;
   height: 6px;
   border-radius: 999px;
-  background: var(--accent-green);
+  background: var(--accent);
   display: inline-block;
 }
 

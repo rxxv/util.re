@@ -2,7 +2,7 @@
 import { cn } from "@/lib/cn";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "solid" | "outline" | "ghost";
+  variant?: "solid" | "outline" | "ghost" | "primary" | "secondary";
   size?: "sm" | "md" | "lg";
 };
 
@@ -13,17 +13,22 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center rounded-lg font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--paper-bg)] disabled:cursor-not-allowed disabled:opacity-50 motion-safe:duration-200 motion-reduce:transition-none";
+    "inline-flex items-center justify-center rounded-[var(--radius-sm)] font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-50 motion-safe:duration-200 motion-reduce:transition-none";
   const variants = {
-    solid: "bg-[var(--accent-green)] text-[var(--paper-surface)] hover:bg-[#3b4f3e]",
+    solid:
+      "bg-[var(--accent)] text-black shadow-[var(--shadow-sm)] hover:brightness-110",
+    primary:
+      "bg-[var(--accent)] text-black shadow-[var(--shadow-sm)] hover:brightness-110",
+    secondary:
+      "border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--accent)]",
     outline:
-      "border border-[var(--border)] bg-[var(--paper-surface)] text-[var(--ink)] hover:bg-[var(--paper-bg)]",
-    ghost: "text-[var(--ink)] hover:bg-[var(--paper-bg)]",
+      "border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--accent)]",
+    ghost: "text-[var(--text)] hover:bg-[var(--surface-2)]",
   };
   const sizes = {
     sm: "px-3 py-1.5 text-xs",
     md: "px-4 py-2 text-sm",
-    lg: "px-5 py-2.5 text-sm",
+    lg: "px-5 py-2.5 text-base",
   };
 
   return (

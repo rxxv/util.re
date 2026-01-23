@@ -10,6 +10,20 @@ const escapeHtml = (value: string) =>
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
+const sanitizeUrl = (value: string) => {
+  const trimmed = value.trim();
+  if (!trimmed) return "#";
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+      return parsed.toString();
+    }
+  } catch {
+    // Ignore parsing errors and block unsafe URLs.
+  }
+  return "#";
+};
+
 const renderMarkdown = (value: string) => {
   const escaped = escapeHtml(value);
   const lines = escaped.split(/\r?\n/);
@@ -29,7 +43,10 @@ const renderMarkdown = (value: string) => {
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
     .replace(/`([^`]+)`/g, "<code>$1</code>")
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>');
+    .replace(/\[(.+?)\]\((.+?)\)/g, (match, label, url) => {
+      const safeUrl = sanitizeUrl(url);
+      return `<a href="${safeUrl}" target="_blank" rel="noreferrer">${label}</a>`;
+    });
 
   return withInline.replace(/(<li>.*<\/li>)/g, "<ul>$1</ul>");
 };
@@ -42,7 +59,7 @@ export default function MarkdownPreviewTool() {
   return (
     <div className="grid gap-4 lg:grid-cols-2">
       <div className="space-y-2">
-        <label htmlFor="markdown-input" className="text-sm font-medium text-[var(--color-ink)]">
+        <label htmlFor="markdown-input" className="text-sm font-medium text-[var(--text)]">
           Markdown
         </label>
         <Textarea
@@ -53,9 +70,9 @@ export default function MarkdownPreviewTool() {
         />
       </div>
       <div className="space-y-2">
-        <p className="text-sm font-medium text-[var(--color-ink)]">Preview</p>
+        <p className="text-sm font-medium text-[var(--text)]">Preview</p>
         <Card
-          className="p-4 text-sm text-[var(--color-muted-text)]"
+          className="p-4 text-sm text-[var(--muted)]"
           dangerouslySetInnerHTML={{ __html: output }}
         />
       </div>

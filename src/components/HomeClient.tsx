@@ -1,13 +1,17 @@
 ﻿"use client";
 
 import { useMemo, useState, useEffect } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { Tool } from "@/data/tools";
 import SearchBar from "@/components/SearchBar";
 import CategoryChips from "@/components/CategoryChips";
-import ToolCard from "@/components/ToolCard";
 import Badge from "@/components/ui/Badge";
-import Card from "@/components/ui/Card";
+import Container from "@/components/ui/Container";
+import Section from "@/components/ui/Section";
+import AuroraBackground from "@/components/ui/AuroraBackground";
+import CategoryDirectory from "@/components/CategoryDirectory";
+import DemoFeedCard from "@/components/DemoFeedCard";
 
 type HomeClientProps = {
   tools: Tool[];
@@ -50,58 +54,121 @@ export default function HomeClient({ tools, categories }: HomeClientProps) {
   }, [tools, activeCategory, query]);
 
   return (
-    <div className="space-y-12">
-      <section className="space-y-5">
-        <div className="space-y-5">
-          <div className="space-y-3">
-            <p className="text-xs uppercase tracking-[0.2em] text-[var(--accent-green)]">
-              Handmade web tools
-            </p>
-            <h1 className="text-3xl font-semibold tracking-tight text-[var(--ink)] sm:text-4xl">
-              A cozy toolbox for calm workdays.
+    <div className="space-y-16">
+      <Section className="relative overflow-hidden">
+        <AuroraBackground />
+        <Container className="relative space-y-8">
+          <div className="space-y-5">
+            <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
+              <span className="rounded-full border border-[var(--border)] px-3 py-1">
+                Privacy-first
+              </span>
+              <span className="rounded-full border border-[var(--border)] px-3 py-1">
+                No tracking
+              </span>
+              <span className="rounded-full border border-[var(--border)] px-3 py-1">
+                Runs locally
+              </span>
+            </div>
+            <h1 className="max-w-3xl text-4xl font-semibold text-[var(--text)] sm:text-5xl">
+              A privacy-first toolbox with the calm, premium feel of a studio app.
             </h1>
-            <p className="text-base text-[var(--muted)]">
-              Simple utilities that stay on your device. No accounts, no tracking,
-              just the quiet tools you reach for every day.
+            <p className="max-w-2xl text-base text-[var(--muted)] sm:text-lg">
+              Fast, local utilities for developers, creators, and curious builders.
+              No accounts, no tracking, just the tools you actually need.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/#directory"
+                className="inline-flex items-center rounded-[var(--radius-sm)] bg-[var(--accent)] px-5 py-2.5 text-base font-semibold text-black shadow-[var(--shadow-sm)] transition hover:brightness-110"
+              >
+                Browse tools
+              </Link>
+              <Link
+                href="/#directory"
+                className="inline-flex items-center rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-base text-[var(--text)] transition hover:border-[var(--accent)]"
+              >
+                Popular tools
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
+            <DemoFeedCard />
+            <div className="space-y-4 text-sm text-[var(--muted)]">
+              <p className="text-base text-[var(--text)]">
+                One toolbox. All the quick utilities.
+              </p>
+              <p>
+                Built to stay light, fast, and accessible. Everything runs in your
+                browser and keeps your data on-device.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Badge tone="soft">Zero cookies</Badge>
+                <Badge tone="soft">Instant results</Badge>
+                <Badge tone="soft">Minimal UI</Badge>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container className="grid gap-8 md:grid-cols-2">
+          <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6">
+            <h2 className="text-xl font-semibold text-[var(--text)]">
+              The problem
+            </h2>
+            <p className="mt-3 text-sm text-[var(--muted)]">
+              Most utility sites are bloated, noisy, and loaded with trackers.
+              You jump between tabs, sign in, and still worry about where your data goes.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            <Badge>Privacy-first</Badge>
-            <Badge>Runs locally</Badge>
-            <Badge>No tracking</Badge>
+          <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6">
+            <h2 className="text-xl font-semibold text-[var(--text)]">
+              The solution
+            </h2>
+            <p className="mt-3 text-sm text-[var(--muted)]">
+              xxxx.re keeps everything local, fast, and predictable. Clean tools,
+              no noise, and a directory that’s easy to scan and share.
+            </p>
           </div>
-          <p className="text-sm text-[var(--muted)]">
-            Built for the handmade web: tidy, readable, and easy to share.
-          </p>
-          <SearchBar
-            value={query}
-            onChange={setQuery}
-            placeholder="Search for a tool or keyword"
-          />
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      <section className="space-y-5" aria-live="polite">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="text-lg font-semibold text-[var(--ink)]">Tools</h2>
+      <Section aria-live="polite">
+        <Container className="space-y-6">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="space-y-2">
+              <h2 className="text-2xl font-semibold text-[var(--text)]">
+                Tool directory
+              </h2>
+              <p className="text-sm text-[var(--muted)]">
+                Search and filter the full catalog. Every tool runs locally.
+              </p>
+            </div>
+            <SearchBar
+              value={query}
+              onChange={setQuery}
+              placeholder="Search for a tool or keyword"
+            />
+          </div>
+
           <CategoryChips
             categories={categories}
             active={activeCategory}
             onSelect={setActiveCategory}
           />
-        </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredTools.map((tool) => (
-            <ToolCard key={tool.slug} tool={tool} />
-          ))}
-        </div>
-        {filteredTools.length === 0 ? (
-          <p className="text-sm text-[var(--muted)]">
-            No tools match that search. Try another keyword or category.
-          </p>
-        ) : null}
-      </section>
+          {filteredTools.length === 0 ? (
+            <p className="text-sm text-[var(--muted)]">
+              No tools match that search. Try another keyword or category.
+            </p>
+          ) : (
+            <CategoryDirectory tools={filteredTools} categories={categories} />
+          )}
+        </Container>
+      </Section>
     </div>
   );
 }

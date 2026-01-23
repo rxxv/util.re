@@ -15,7 +15,7 @@ export default function Image() {
     (
       <div
         style={{
-          background: "linear-gradient(120deg, #fff4e5, #e6f4ff)",
+          background: "linear-gradient(120deg, #0b0d0f, #151821)",
           height: "100%",
           width: "100%",
           display: "flex",
@@ -24,10 +24,10 @@ export default function Image() {
           padding: "80px",
         }}
       >
-        <div style={{ fontSize: 56, fontWeight: 700, color: "#111111" }}>
+        <div style={{ fontSize: 56, fontWeight: 700, color: "#f4f4f0" }}>
           {siteConfig.name}
         </div>
-        <div style={{ fontSize: 24, marginTop: 16, color: "#444444" }}>
+        <div style={{ fontSize: 24, marginTop: 16, color: "#a7adb8" }}>
           {siteConfig.description}
         </div>
       </div>

@@ -2,7 +2,8 @@
 import "./globals.css";
 import { siteConfig, siteUrl } from "@/lib/site";
 import { ToastProvider } from "@/components/ui/ToastProvider";
-import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -35,10 +36,11 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="antialiased">
         <ToastProvider>
-          <Sidebar />
-          <main className="min-h-screen px-4 pb-16 pt-24 lg:ml-80 lg:px-10 lg:pt-12">
-            <div className="mx-auto w-full max-w-5xl">{children}</div>
+          <Header />
+          <main className="min-h-screen">
+            {children}
           </main>
+          <Footer />
         </ToastProvider>
       </body>
     </html>

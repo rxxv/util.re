@@ -24,7 +24,7 @@ export default function Image({ params }: OgProps) {
     (
       <div
         style={{
-          background: "linear-gradient(120deg, #ffffff, #f1f5ff)",
+          background: "linear-gradient(120deg, #0b0d0f, #151821)",
           height: "100%",
           width: "100%",
           display: "flex",
@@ -33,13 +33,13 @@ export default function Image({ params }: OgProps) {
           padding: "80px",
         }}
       >
-        <div style={{ fontSize: 48, fontWeight: 700, color: "#111111" }}>
+        <div style={{ fontSize: 48, fontWeight: 700, color: "#f4f4f0" }}>
           {title}
         </div>
-        <div style={{ fontSize: 22, marginTop: 16, color: "#444444" }}>
+        <div style={{ fontSize: 22, marginTop: 16, color: "#a7adb8" }}>
           {description}
         </div>
-        <div style={{ fontSize: 18, marginTop: 28, color: "#6b6b6b" }}>
+        <div style={{ fontSize: 18, marginTop: 28, color: "#ff7a4a" }}>
           {siteConfig.name}
         </div>
       </div>

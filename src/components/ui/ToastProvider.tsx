@@ -33,7 +33,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className="rounded-lg border border-[var(--border)] bg-[var(--paper-surface)] px-4 py-2 text-xs text-[var(--ink)] shadow-sm"
+            className="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs text-[var(--text)] shadow-[var(--shadow-sm)]"
             role="status"
             aria-live="polite"
           >
