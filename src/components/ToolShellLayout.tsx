@@ -20,7 +20,7 @@ export default function ToolShellLayout({ tool, children }: ToolShellLayoutProps
           <ul className="mt-3 space-y-2 text-sm text-[var(--text)]">
             {tips.map((tip) => (
               <li key={tip} className="flex gap-2">
-                <span className="text-[var(--accent)]">•</span>
+                <span className="text-[var(--accent)]">*</span>
                 <span>{tip}</span>
               </li>
             ))}

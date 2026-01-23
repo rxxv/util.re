@@ -77,7 +77,7 @@ export default function HomeClient({ tools, categories }: HomeClientProps) {
                 Runs locally
               </span>
             </div>
-            <h1 className="max-w-3xl text-4xl font-semibold text-[var(--text)] sm:text-5xl">
+            <h1 className="max-w-3xl text-[clamp(2.1rem,6vw,3.2rem)] font-semibold leading-tight text-[var(--text)]">
               A privacy-first toolbox with the calm, premium feel of a studio app.
             </h1>
             <p className="max-w-2xl text-base text-[var(--muted)] sm:text-lg">

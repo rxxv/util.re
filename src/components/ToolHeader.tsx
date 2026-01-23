@@ -10,15 +10,24 @@ type ToolHeaderProps = {
 
 export default function ToolHeader({ tool }: ToolHeaderProps) {
   return (
-    <div className="relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] px-6 py-8 shadow-[var(--shadow-glow)] sm:px-10">
+    <div className="relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] px-5 py-7 shadow-[var(--shadow-glow)] sm:px-10">
       <AuroraBackground />
       <div className="relative space-y-4">
-        <Link
-          href="/#directory"
-          className="inline-flex items-center text-xs uppercase tracking-[0.2em] text-[var(--muted)] transition hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
-        >
-          Browse tools
-        </Link>
+        <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
+          <Link
+            href="/#directory"
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-4 py-1.5 text-[11px] font-semibold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+          >
+            <span aria-hidden="true">←</span>
+            Back to tools
+          </Link>
+          <Link
+            href="/#directory"
+            className="inline-flex items-center text-[10px] text-[var(--muted)] transition hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+          >
+            Browse tools
+          </Link>
+        </div>
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
             {tool.category}
@@ -27,9 +36,9 @@ export default function ToolHeader({ tool }: ToolHeaderProps) {
           <Badge tone="soft">No tracking</Badge>
           <Badge tone="soft">Runs locally</Badge>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 items-center gap-3">
           <ToolIcon slug={tool.slug} className="h-6 w-6 text-[var(--accent)]" />
-          <h1 className="text-3xl font-semibold text-[var(--text)] sm:text-4xl">
+          <h1 className="min-w-0 break-words text-[clamp(2rem,6vw,2.6rem)] font-semibold text-[var(--text)]">
             {tool.title}
           </h1>
         </div>

@@ -42,6 +42,10 @@
   color-scheme: dark;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 .light {
   --bg: #f7f6f4;
   --surface: #ffffff;
@@ -78,6 +82,8 @@ body {
     "Segoe UI", sans-serif;
   min-height: 100vh;
   line-height: 1.6;
+  overflow-x: hidden;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 h1,
@@ -102,8 +108,23 @@ select {
   font-family: inherit;
 }
 
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
 * {
   box-sizing: border-box;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
 }
 
 @keyframes wobble {

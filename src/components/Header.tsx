@@ -138,21 +138,24 @@ export default function Header() {
       {open ? (
         <button
           type="button"
-          className="fixed inset-0 z-50 bg-black/60 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/70 lg:hidden"
           onClick={() => setOpen(false)}
           aria-label="Close menu"
         />
       ) : null}
       <aside
-        className={`fixed right-0 top-0 z-50 h-full w-80 border-l border-[var(--border)] bg-[var(--surface)] p-6 transition duration-200 lg:hidden ${
+        className={`fixed inset-0 z-50 flex h-full w-full flex-col border-l border-[var(--border)] bg-[var(--surface)] px-6 pb-[calc(env(safe-area-inset-bottom)+24px)] pt-[calc(env(safe-area-inset-top)+16px)] transition duration-200 lg:hidden sm:inset-y-0 sm:right-0 sm:left-auto sm:w-96 sm:rounded-l-[var(--radius-lg)] ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
         aria-hidden={!open}
       >
         <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-[var(--text)]">
-            {siteConfig.name}
-          </p>
+          <div>
+            <p className="text-sm font-semibold text-[var(--text)]">
+              {siteConfig.name}
+            </p>
+            <p className="text-xs text-[var(--muted)]">Handmade web tools</p>
+          </div>
           <button
             type="button"
             className="rounded-[var(--radius-sm)] border border-[var(--border)] px-2 py-1 text-xs text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
@@ -161,7 +164,7 @@ export default function Header() {
             Close
           </button>
         </div>
-        <div className="mt-6 space-y-6">
+        <div className="mt-6 min-h-0 flex-1 space-y-6 overflow-y-auto pr-1">
           <a
             href="/#directory"
             className="inline-flex w-full items-center justify-center rounded-[var(--radius-sm)] bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
