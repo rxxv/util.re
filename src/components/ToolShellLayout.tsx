@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Tool } from "@/data/tools";
 import Card from "@/components/ui/Card";
+import Surface from "@/components/ui/Surface";
 
 type ToolShellLayoutProps = {
   tool: Tool;
@@ -26,9 +27,9 @@ export default function ToolShellLayout({ tool, children }: ToolShellLayoutProps
             ))}
           </ul>
         </div>
-        <div className="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface-2)] px-3 py-3 text-xs text-[var(--muted)]">
+        <Surface className="px-3 py-3 text-xs text-[var(--muted)]">
           Everything runs locally in your browser. No uploads or tracking.
-        </div>
+        </Surface>
       </Card>
     </div>
   );

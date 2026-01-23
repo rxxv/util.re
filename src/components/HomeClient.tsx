@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import type { Tool } from "@/data/tools";
 import SearchBar from "@/components/SearchBar";
 import CategoryChips from "@/components/CategoryChips";
+import ToolCard from "@/components/ToolCard";
 import Badge from "@/components/ui/Badge";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
@@ -50,14 +51,16 @@ export default function HomeClient({ tools, categories }: HomeClientProps) {
       return matchesCategory && matchesQuery(tool, query);
     });
   }, [tools, activeCategory, query]);
+  const popularTools = useMemo(() => tools.slice(0, 8), [tools]);
+  const showAllLinks = !query && activeCategory === "All";
 
-  const scrollToDirectory = () => {
-    const target = document.getElementById("directory");
+  const scrollToSection = (id: string) => {
+    const target = document.getElementById(id);
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
-    window.location.hash = "directory";
+    window.location.hash = id;
   };
 
   return (
@@ -87,14 +90,14 @@ export default function HomeClient({ tools, categories }: HomeClientProps) {
             <div className="flex flex-wrap gap-3">
               <button
                 type="button"
-                onClick={scrollToDirectory}
+                onClick={() => scrollToSection("directory")}
                 className="inline-flex items-center rounded-[var(--radius-sm)] bg-[var(--accent)] px-5 py-2.5 text-base font-semibold text-black shadow-[var(--shadow-sm)] transition hover:brightness-110"
               >
                 Browse tools
               </button>
               <button
                 type="button"
-                onClick={scrollToDirectory}
+                onClick={() => scrollToSection("popular-tools")}
                 className="inline-flex items-center rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-base text-[var(--text)] transition hover:border-[var(--accent)]"
               >
                 Popular tools
@@ -142,6 +145,58 @@ export default function HomeClient({ tools, categories }: HomeClientProps) {
         </Container>
       </Section>
 
+      <Section>
+        <Container className="space-y-6">
+          <div className="space-y-2" id="popular-tools">
+            <h2 className="text-2xl font-semibold text-[var(--text)]">
+              Popular tools
+            </h2>
+            <p className="text-sm text-[var(--muted)]">
+              Quick access to the most used utilities.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {popularTools.map((tool) => (
+              <ToolCard key={tool.slug} tool={tool} />
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container className="space-y-6">
+          <h2 className="text-2xl font-semibold text-[var(--text)]">
+            Why xxxx.re
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-5">
+              <h3 className="text-base font-semibold text-[var(--text)]">
+                Fast, local-first
+              </h3>
+              <p className="mt-2 text-sm text-[var(--muted)]">
+                Tools run in your browser with instant feedback and no uploads.
+              </p>
+            </div>
+            <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-5">
+              <h3 className="text-base font-semibold text-[var(--text)]">
+                No tracking
+              </h3>
+              <p className="mt-2 text-sm text-[var(--muted)]">
+                No logins, cookies, or analytics. Your data stays yours.
+              </p>
+            </div>
+            <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-5">
+              <h3 className="text-base font-semibold text-[var(--text)]">
+                Clean output
+              </h3>
+              <p className="mt-2 text-sm text-[var(--muted)]">
+                Export-ready results without bloated interfaces or clutter.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
       <Section aria-live="polite">
         <Container className="space-y-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
@@ -171,7 +226,11 @@ export default function HomeClient({ tools, categories }: HomeClientProps) {
               No tools match that search. Try another keyword or category.
             </p>
           ) : (
-            <CategoryDirectory tools={filteredTools} categories={categories} />
+            <CategoryDirectory
+              tools={filteredTools}
+              categories={categories}
+              showAllLinks={showAllLinks}
+            />
           )}
         </Container>
       </Section>

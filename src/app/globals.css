@@ -4,6 +4,7 @@
   --bg: #0b0d0f;
   --surface: #12141a;
   --surface-2: #181b22;
+  --surface2: var(--surface-2);
   --border: #262a35;
   --text: #f4f4f0;
   --muted: #a7adb8;
@@ -19,6 +20,10 @@
   --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.35);
   --shadow-glow: 0 0 0 1px rgba(255, 255, 255, 0.04),
     0 12px 40px rgba(0, 0, 0, 0.45);
+  --r-sm: var(--radius-sm);
+  --r-md: var(--radius-md);
+  --r-lg: var(--radius-lg);
+  --r-xl: 28px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
