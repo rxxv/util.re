@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { MouseEvent } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { siteConfig } from "@/lib/site";
 import { categories, sortedTools } from "@/data/tools";
 import Container from "@/components/ui/Container";
@@ -10,14 +12,40 @@ import ToolIcon from "@/components/ToolIcon";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
   const popularTools = useMemo(() => sortedTools.slice(0, 6), []);
   const menuCategories = useMemo(
     () => categories.filter((category) => category !== "All"),
     []
   );
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const handleBrowseTools = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    if (pathname === "/") {
+      const target = document.getElementById("directory");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+    }
+    router.push("/#directory");
+  };
+
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--bg)] backdrop-blur">
+    <header
+      className={cn(
+        "sticky top-0 border-b border-[var(--border)] bg-[var(--bg)] backdrop-blur",
+        open ? "z-40" : "z-50"
+      )}
+    >
       <Container className="flex items-center justify-between py-4">
         <Link
           href="/"
@@ -85,20 +113,22 @@ export default function Header() {
             </details>
           </nav>
 
-          <Link
+          <a
             href="/#directory"
+            onClick={handleBrowseTools}
             className={cn(
               "hidden items-center rounded-[var(--radius-sm)] bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-black shadow-[var(--shadow-sm)] transition hover:brightness-110 lg:inline-flex"
             )}
           >
             Browse tools
-          </Link>
+          </a>
 
           <button
             type="button"
             className="inline-flex items-center rounded-[var(--radius-sm)] border border-[var(--border)] px-3 py-2 text-xs text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] lg:hidden"
             onClick={() => setOpen(true)}
             aria-label="Open menu"
+            aria-expanded={open}
           >
             Menu
           </button>
@@ -108,7 +138,7 @@ export default function Header() {
       {open ? (
         <button
           type="button"
-          className="fixed inset-0 z-40 bg-black/60 lg:hidden"
+          className="fixed inset-0 z-50 bg-black/60 lg:hidden"
           onClick={() => setOpen(false)}
           aria-label="Close menu"
         />
@@ -132,13 +162,16 @@ export default function Header() {
           </button>
         </div>
         <div className="mt-6 space-y-6">
-          <Link
+          <a
             href="/#directory"
             className="inline-flex w-full items-center justify-center rounded-[var(--radius-sm)] bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
-            onClick={() => setOpen(false)}
+            onClick={(event) => {
+              setOpen(false);
+              handleBrowseTools(event);
+            }}
           >
             Browse tools
-          </Link>
+          </a>
           {menuCategories.map((category) => (
             <div key={category} className="space-y-2">
               <p className="text-xs uppercase tracking-[0.2em] text-[var(--muted)]">

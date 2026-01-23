@@ -1,7 +1,6 @@
 ﻿"use client";
 
 import { useMemo, useState, useEffect } from "react";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { Tool } from "@/data/tools";
 import SearchBar from "@/components/SearchBar";
@@ -11,7 +10,6 @@ import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import AuroraBackground from "@/components/ui/AuroraBackground";
 import CategoryDirectory from "@/components/CategoryDirectory";
-import DemoFeedCard from "@/components/DemoFeedCard";
 
 type HomeClientProps = {
   tools: Tool[];
@@ -53,6 +51,15 @@ export default function HomeClient({ tools, categories }: HomeClientProps) {
     });
   }, [tools, activeCategory, query]);
 
+  const scrollToDirectory = () => {
+    const target = document.getElementById("directory");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    window.location.hash = "directory";
+  };
+
   return (
     <div className="space-y-16">
       <Section className="relative overflow-hidden">
@@ -78,36 +85,35 @@ export default function HomeClient({ tools, categories }: HomeClientProps) {
               No accounts, no tracking, just the tools you actually need.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link
-                href="/#directory"
+              <button
+                type="button"
+                onClick={scrollToDirectory}
                 className="inline-flex items-center rounded-[var(--radius-sm)] bg-[var(--accent)] px-5 py-2.5 text-base font-semibold text-black shadow-[var(--shadow-sm)] transition hover:brightness-110"
               >
                 Browse tools
-              </Link>
-              <Link
-                href="/#directory"
+              </button>
+              <button
+                type="button"
+                onClick={scrollToDirectory}
                 className="inline-flex items-center rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-base text-[var(--text)] transition hover:border-[var(--accent)]"
               >
                 Popular tools
-              </Link>
+              </button>
             </div>
           </div>
 
-          <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
-            <DemoFeedCard />
-            <div className="space-y-4 text-sm text-[var(--muted)]">
-              <p className="text-base text-[var(--text)]">
-                One toolbox. All the quick utilities.
-              </p>
-              <p>
-                Built to stay light, fast, and accessible. Everything runs in your
-                browser and keeps your data on-device.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <Badge tone="soft">Zero cookies</Badge>
-                <Badge tone="soft">Instant results</Badge>
-                <Badge tone="soft">Minimal UI</Badge>
-              </div>
+          <div className="space-y-4 text-sm text-[var(--muted)]">
+            <p className="text-base text-[var(--text)]">
+              One toolbox. All the quick utilities.
+            </p>
+            <p>
+              Built to stay light, fast, and accessible. Everything runs in your
+              browser and keeps your data on-device.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <Badge tone="soft">Zero cookies</Badge>
+              <Badge tone="soft">Instant results</Badge>
+              <Badge tone="soft">Minimal UI</Badge>
             </div>
           </div>
         </Container>

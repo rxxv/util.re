@@ -12,7 +12,7 @@ export default function CategoryDirectory({
   categories,
 }: CategoryDirectoryProps) {
   return (
-    <div className="space-y-8" id="directory">
+    <div className="space-y-8 scroll-mt-24" id="directory">
       {categories.filter((category) => category !== "All").map((category) => {
         const items = tools.filter((tool) => tool.category === category);
         if (!items.length) return null;
